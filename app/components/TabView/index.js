@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {Dimensions, ScrollView, View} from 'react-native';
+import {ScrollView, RefreshControl, View} from 'react-native';
 import Tabs from '../Tabs';
-import {IS_X, NOTCH_HEIGHT, STATUS_BAR_HEIGHT} from '../../constants';
+import {RGB_TO_HEX} from "../../constants";
 const TabScore = () => {
     return (
         <ScrollView>
@@ -16,11 +16,39 @@ const TabScore = () => {
     );
 };
 const TabColour = () => {
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = () => {
+        setRefreshing(true);
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    };
     return (
-        <ScrollView>
-            <View style={{height: 200, backgroundColor: '#ffabfa'}}/>
-            <View style={{height: 200, backgroundColor: '#ab00ff'}}/>
-            <View style={{height: 200, backgroundColor: '#ab1fff'}}/>
+        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+            <View style={{
+                height: 200,
+                backgroundColor: RGB_TO_HEX(
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                )
+            }}/>
+            <View style={{
+                height: 200,
+                backgroundColor: RGB_TO_HEX(
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                )
+            }}/>
+            <View style={{
+                height: 200,
+                backgroundColor: RGB_TO_HEX(
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                    Math.floor(Math.random() * 256),
+                )
+            }}/>
         </ScrollView>
     );
 };
@@ -39,7 +67,6 @@ const TabProduct = () => {
     );
 };
 const TabView = () => {
-    const {width , height} = Dimensions.get('window');
     const [current, setCurrent] = useState(0);
     const getContent = () => {
         let content = null;
@@ -55,11 +82,6 @@ const TabView = () => {
         }
 
         return content;
-    };
-    const tabStyle = {
-        width: width,
-        height: height - (IS_X ? NOTCH_HEIGHT : STATUS_BAR_HEIGHT),
-        backgroundColor: getContent()
     };
     return (
         <>
