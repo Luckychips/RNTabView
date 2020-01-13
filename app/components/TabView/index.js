@@ -24,7 +24,14 @@ const TabColour = () => {
         }, 1000);
     };
     return (
-        <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh}/>}>
+        <ScrollView refreshControl={
+            <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={'#ababff'}
+                colors={['#ffabab']}
+            />
+        }>
             <View style={{
                 height: 200,
                 backgroundColor: RGB_TO_HEX(
